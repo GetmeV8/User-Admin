@@ -1,0 +1,211 @@
+<section class="vh-100 " style="background-color: #eee; ">
+  <div class="container-fluid h-100 main-body">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black " style="border-radius: 25px;">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                <p class="text-center h1 fw-bold mb-1 mx-1 mx-md-4 mt-4">Sign up</p>
+
+                <form id="formSubmit"  class="mx-1 mx-md-4"  action="/signup" method="post"    >
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    {{!-- <i class="fas fa-user fa-lg me-3 fa-fw"></i> --}}
+                    <div class="form-outline flex-fill mb-0">
+                      <label id="name-error" class=" text-danger" for="name"></label>
+                      <input type="text" id="name" class="form-control" onkeyup="validateName()" name="name"  />
+                      <label class="form-label" for="name">Your Name</label>
+                      
+                       
+                    </div>
+                  </div>
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    {{!-- <i class="fas fa-envelope fa-lg me-3 fa-fw"></i> --}}
+                    <div class="form-outline flex-fill mb-0">
+                      <label id="email-error" class=" text-danger" for="email"></label>
+                      <input type="email" id="email" class="form-control" onkeyup="validateEmail()" name="email" />
+                      <label class="form-label" for="email">Your Email</label>
+                      
+                    </div>
+                  </div>
+
+
+                  <div class="d-flex flex-row align-items-center mb-4">
+                    {{!-- <i class="fas fa-lock fa-lg me-3 fa-fw"></i> --}}
+                    <div class="form-outline flex-fill mb-0">
+                      <label id="mobile-error" class="text-danger" for="mobile"></label>
+                      <input type="mobile" id="mobile" class="form-control" onkeyup="validateMobile()" ="mobile" />
+                      <label class="form-label" for="mobile">Mobile Number</label>
+                      
+                    </div>
+                  </div>
+
+
+
+                  <div class="d-flex flex-row align-items-center mb-2">
+                    {{!-- <i class="fas fa-lock fa-lg me-3 fa-fw"></i> --}}
+                    <div class="form-outline flex-fill mb-0">
+                      <label id="password-error" class=" text-danger" for="password"></label>
+                      <input type="password" id="password" class="form-control" onkeyup="validatePassword()"  name="password" />
+                      <label class="form-label" for="password">Password</label>
+                      
+                    </div>
+                  </div>
+
+
+
+                  <div class="form-check d-flex justify-content-center mb-3">
+                    {{!-- <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                    <label class="form-check-label" for="form2Example3">
+                      I agree all statements in <a href="#!">Terms of service</a>
+                    </label> --}}
+                    {{#if regUser}}
+                    <label for="" style="color: red" class=" submit">User Already Exists</label>
+
+                    {{/if}}
+                  </div>
+                <div class="d-flex align-items-center   justify-content-center ">
+                    <label id="submit-error" class="text-danger" for="button1"></label>
+
+                    
+
+                  </div>
+
+                  <div class="d-flex align-items-center flex-column  justify-content-center  mb-lg-4">
+                    
+
+                    <button onclick="return validateForm()" type="button" class="btn btn-primary btn-lg" name="button1" value="submit form" >Register</button >
+
+                  </div>
+
+
+                </form>
+
+              </div>
+              <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  class="img-fluid" alt="Sample image">
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+    // form validation
+
+var nameError = document.getElementById('name-error');
+var emailError = document.getElementById('email-error');
+var mobileError = document.getElementById('mobile-error');
+var passwordError=document.getElementById('password-error')
+var submitError = document.getElementById('submit-error');
+
+
+
+function validateName() {
+    
+    var name= document.getElementById('name').value;
+
+    if(name.length == 0){
+        nameError.innerHTML = 'Name is required';
+        return false;
+    }
+    if(!name[0].match(/^(?=.*[A-Z])/)){
+         nameError.innerHTML = 'First letter should be capital'
+         return false
+    } 
+    if(!name.match(/^[A-Za-z]+ [A-Za-z]+$/)) {
+        nameError.innerHTML = 'Write full name';
+        return false;
+    }
+    nameError.innerHTML = '';
+        return true;
+}
+
+function validateEmail() {
+    var email = document.getElementById('email').value;
+
+    if(email.length == 0) {
+        emailError.innerHTML = 'Email is required';
+        return false;
+    }
+    if(!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+        emailError.innerHTML = 'Email invalid';
+        return false;
+    }
+    emailError.innerHTML = '';
+    return true;
+}
+
+function validateMobile(){
+    var mobile = document.getElementById('mobile').value;
+    if(mobile.length < 10 || mobile.length >10){
+        mobileError.innerHTML = 'Enter the full number';
+        return false;
+    }
+    if(isNaN(mobile)){
+        mobileError.innerHTML = 'Enter number'
+        return false
+    }
+    mobileError.innerHTML = ""
+    return true;
+}
+
+function validatePassword(){
+    var password = document.getElementById('password').value;
+     if(!password[0].match(/^(?=.*[A-Z])/)){
+         passwordError.innerHTML = 'First letter should be capital'
+         return false
+    } 
+    if(password.length == 0){
+        passwordError.innerHTML = 'Password cannot be blank'
+        return false
+    }
+    if(password.length <8){
+        passwordError.innerHTML = 'Atleast 8 characters'
+        return false
+    }
+    
+    if(!password.match(/^(?=.*[0-9])/)){
+         passwordError.innerHTML = 'Atleast use one number'
+         return false
+    }
+    if(!password.match(/^(?=.*[!@#$%^&*])/)){
+         passwordError.innerHTML = 'Atleast use one special character'
+         return false
+    } 
+    if(!password.match(/^(?=.*[a-z])/)){
+         passwordError.innerHTML = 'Use atleast one uppercase letter'
+         return false
+    } 
+   
+    
+    passwordError.innerHTML = "";
+    return true
+    
+
+}
+
+function validateForm() {
+    if(!validateEmail() || !validateMobile() || !validateName() || !validatePassword()) {
+        event.preventDefault();
+        submitError.style.display = 'block';
+        submitError.innerHTML = 'Please fix all errors to submit.';
+        setTimeout(function() {submitError.style.display = 'none';}, 3000);
+
+        return false;
+    }
+    
+      document.getElementById('formSubmit').submit()
+    
+}
+</script>

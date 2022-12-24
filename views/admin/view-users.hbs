@@ -1,0 +1,55 @@
+<section class="intro" style="padding-top: 3rem!important;">
+  <div class="gradient-custom-1 h-auto min-vh-100 ">
+    <div class="mask d-flex  h-100">
+      <div class="container">
+        <div class="row justify-content-center mt-3">
+          <div class="col-12">
+            <div style="display: flex; flex-direction:row-reverse; ">
+              <a href="/admin/add-user" class="btn btn-success mt-5 mb-2">Add Users</a>
+            </div>
+            <div class="table-responsive bg-white p-5">
+              <table id="usersTable" class="display table mb-0 mt-4" >
+                <thead>
+                  <tr>
+                    <th scope="col">User Name</th>
+                    <th scope="col">Email ID</th>
+                    <th scope="col">Mobile Number</th>
+                    <th scope="col">Options</th>
+
+                    {{!-- <th scope="col">ADDRESS</th>
+                    <th scope="col">SALARY</th> --}}
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each users}}
+                  <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.email}}</td>
+                    <td>{{this.mobile}}</td>
+
+                    <td>
+                    <a href="/admin/edit-user/{{this._id}}" class="btn btn-danger">Edit</a>
+                    <a href="/admin/delete-user/{{this._id}}" onclick="return confirm('Are you sure to delete {{this.name}}?' )" class="btn btn-primary" >Delete</a>
+                  
+
+                    </td>
+                    
+                  </tr>
+                  {{/each}}
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+   $(document).ready( function () {
+    $('#usersTable').DataTable();
+} );
+   
+</script>

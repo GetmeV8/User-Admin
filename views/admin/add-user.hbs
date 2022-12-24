@@ -1,0 +1,320 @@
+<div class="form-body" style="padding-top: 4rem;">
+    <div class="row">
+        <div class="form-holder">
+            <div class="form-content">
+                <div class="form-items">
+                    <h3>Add New User</h3>
+                    <p>Fill in the data below.</p>
+                    <form id="userForm" action="/admin/add-user" method="post">
+
+                        <div class="col-md-12">
+                            <input id="name" class="form-control" type="text" name="name" onkeyup="validateName()" placeholder="User Name" >
+                            <label id="name-error" class="errorLabel text-danger" for="name"></label>
+                           
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <input id="email"  type="email" name="email" onkeyup="validateEmail()" placeholder="Email" >
+                            <label id="email-error" class="errorLabel text-danger" for="email"></label>
+                            
+                        </div>
+
+
+
+                        <div class="col-md-12 mb-3">
+                            <input id="mobile" class="form-control" type="mobile" name="mobile" onkeyup="validateMobile()" placeholder="Mobile Number" >
+                                <label id="mobile-error" class="errorLabel text-danger" for="mobile"></label>
+                            
+                        </div>
+
+                        <div class="col-md-12 mb-3">
+                            <input id="password" class="form-control" type="password" name="password" onkeyup="validatePassword()" placeholder="Password" >
+                            <label id="password-error" class="errorLabel text-danger" for="password"></label>
+                            
+                        </div>
+
+
+                        <div class="form-button mt-3">
+
+                            <button id="button" name="button" type="button" class="btn btn-primary" onclick="return validateForm()">Submit</button >
+                            <label id="submit-error" class="errorLabel text-danger"  for="button"></label>
+                            {{#if oldUser}}
+                            <label style="color: rgba(255, 0, 0, 0.616);" for="submit">User Already Exists</label>
+                            {{/if}}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // form validation
+
+var nameError = document.getElementById('name-error');
+var emailError = document.getElementById('email-error');
+var mobileError = document.getElementById('mobile-error');
+var passwordError=document.getElementById('password-error')
+var submitError = document.getElementById('submit-error');
+
+
+
+function validateName() {
+    
+    var name= document.getElementById('name').value;
+
+    if(name == ''){
+        nameError.innerHTML = 'Name is required';
+        return false;
+    }
+    if(!name[0].match(/^(?=.*[A-Z])/)){
+         nameError.innerHTML = 'First letter should be capital'
+         return false
+    } 
+    if(!name.match(/^[A-Za-z]+ [A-Za-z]+$/)) {
+        nameError.innerHTML = 'Write full name';
+        return false;
+    }
+    nameError.innerHTML = '';
+        return true;
+}
+
+function validateEmail() {
+    var email = document.getElementById('email').value;
+
+    if(email.length == 0) {
+        emailError.innerHTML = 'Email is required';
+        return false;
+    }
+    if(!email.match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
+        emailError.innerHTML = 'Email invalid';
+        return false;
+    }
+    emailError.innerHTML = '';
+    return true;
+}
+
+function validateMobile(){
+    var mobile = document.getElementById('mobile').value;
+    if(mobile.length < 10 || mobile.length >10){
+        mobileError.innerHTML = 'Enter the full number';
+        return false;
+    }
+    if(isNaN(mobile)){
+        mobileError.innerHTML = 'Enter number'
+        return false
+    }
+    mobileError.innerHTML = ""
+    return true;
+}
+
+function validatePassword(){
+    var password = document.getElementById('password').value;
+    if(password == ""){
+        passwordError.innerHTML = 'Password cannot be blank'
+        return false
+    }
+     if(!password[0].match(/^(?=.*[A-Z])/)){
+         passwordError.innerHTML = 'First letter should be capital'
+         return false
+    } 
+    
+    if(password.length <8){
+        passwordError.innerHTML = 'Atleast 8 characters'
+        return false
+    }
+    
+    if(!password.match(/^(?=.*[0-9])/)){
+         passwordError.innerHTML = 'Atleast use one number'
+         return false
+    }
+    if(!password.match(/^(?=.*[!@#$%^&*])/)){
+         passwordError.innerHTML = 'Atleast use one special character'
+         return false
+    } 
+    if(!password.match(/^(?=.*[a-z])/)){
+         passwordError.innerHTML = 'Use atleast one lowercase letter'
+         return false
+    } 
+   
+    
+    passwordError.innerHTML = "";
+    return true
+    
+
+}
+
+function validateForm() {
+
+    if(!validateEmail() || !validateMobile() || !validateName() || !validatePassword()) {
+        
+        submitError.innerHTML = 'Please fix all errors to submit.';
+        setTimeout(function() {submitError.style.display = 'none';}, 3000);
+        return false;
+    }
+    document.getElementById('userForm').submit();
+}
+</script>
+<style>
+    *,
+    body {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    html,
+    body {
+        height: 100%;
+        background-color: #152733;
+        overflow: hidden;
+    }
+
+    .errorLabel {
+        color: rgba(255, 0, 0, 0.514);
+    }
+
+    .form-holder {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 100vh;
+    }
+
+    .form-holder .form-content {
+        position: relative;
+        text-align: center;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-align-items: center;
+        align-items: center;
+        padding: 60px;
+    }
+
+    .form-content .form-items {
+        border: 3px solid #fff;
+        padding: 40px;
+        display: inline-block;
+        width: 100%;
+        min-width: 540px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        text-align: left;
+        -webkit-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+    }
+
+    .form-content h3 {
+        color: #fff;
+        text-align: left;
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .form-content h3.form-title {
+        margin-bottom: 30px;
+    }
+
+    .form-content p {
+        color: #fff;
+        text-align: left;
+        font-size: 17px;
+        font-weight: 300;
+        line-height: 20px;
+        margin-bottom: 30px;
+    }
+
+
+    .form-content label,
+    .was-validated .form-check-input:invalid~.form-check-label,
+    .was-validated .form-check-input:valid~.form-check-label {
+        color: #fff;
+    }
+
+    .form-content input[type=text],
+    .form-content input[type=password],
+    .form-content input[type=email],
+    .form-content select {
+        width: 100%;
+        padding: 9px 20px;
+        text-align: left;
+        border: 0;
+        outline: 0;
+        border-radius: 6px;
+        background-color: #fff;
+        font-size: 15px;
+        font-weight: 300;
+        color: #8D8D8D;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        margin-top: 16px;
+    }
+
+
+    .btn-primary {
+        background-color: #6C757D;
+        outline: none;
+        border: 0px;
+        box-shadow: none;
+    }
+
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active {
+        background-color: #495056;
+        outline: none !important;
+        border: none !important;
+        box-shadow: none;
+    }
+
+    .form-content textarea {
+        position: static !important;
+        width: 100%;
+        padding: 8px 20px;
+        border-radius: 6px;
+        text-align: left;
+        background-color: #fff;
+        border: 0;
+        font-size: 15px;
+        font-weight: 300;
+        color: #8D8D8D;
+        outline: none;
+        resize: none;
+        height: 120px;
+        -webkit-transition: none;
+        transition: none;
+        margin-bottom: 14px;
+    }
+
+    .form-content textarea:hover,
+    .form-content textarea:focus {
+        border: 0;
+        background-color: #ebeff8;
+        color: #8D8D8D;
+    }
+
+    .mv-up {
+        margin-top: -9px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .invalid-feedback {
+        color: #ff606e;
+    }
+
+    .valid-feedback {
+        color: #2acc80;
+    }
+</style>

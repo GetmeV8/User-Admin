@@ -1,0 +1,41 @@
+<section class="intro" style="padding-top: 3rem!important;">
+  <div class="gradient-custom-1  h-auto">
+    <div class="mask d-flex  h-100">
+      <div class="container">
+        <div class="row justify-content-center mt-2">
+          <div class="col-12">
+            <div style="display: flex; flex-direction:row-reverse; " class="mt-5 mb-2">
+              <a href="/admin/add-movies" class="btn btn-success mt-2">Add movies</a>
+            </div>
+            <div class="table-responsive bg-white">
+              <table class="table mb-0 mt-4">
+                <thead>
+                  <tr>
+                    <th scope="col">Movie Name</th>
+                    <th scope="col">Description</th>
+                   {{!-- <th scope="col">Image</th> --}}
+                    <th scope="col">Link</th>
+                    {{!-- <th scope="col">ADDRESS</th>
+                    <th scope="col">SALARY</th> --}}
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each movies}}
+                  <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.description}}</td>
+                    {{!-- <td><img style="height: 50px; width:50px" src="{{this.image}}" alt=""></td> --}}
+                    <td>{{this.link}}</td>
+                    {{!-- <td>$320,800</td> --}}
+                  </tr>
+                  {{/each}}
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
